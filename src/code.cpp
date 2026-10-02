@@ -50,10 +50,7 @@ std::string printLegacyData(LegacyData data, char type) {
 /// Initializes a structNode with value, type indicator, and nullptr nextPtr.
 void initStructNode(structNode* nPtr, LegacyData val, char type) {
     // TODO: Check if nPtr is nullptr before assigning fields
-    if(nPtr = NULL)
-    {
-        return;
-    }
+
 }
 
 /// Dynamically allocates two structNodes.
