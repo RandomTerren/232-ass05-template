@@ -4,6 +4,7 @@
 #ifndef UNITY_H
 #define UNITY_H
 #include "unity.h"
+#include "code.hpp"
 #endif
 
 // ============================================================
