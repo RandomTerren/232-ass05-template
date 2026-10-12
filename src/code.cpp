@@ -31,23 +31,16 @@ const std::string credits = "I have used Geeks for Geeks and copilot to help me 
 
 std::string printLegacyData(LegacyData data, char type) {
     // TODO: Implement switch/case for 'i', 'd', 'c' and default case
-    std::string result = "nullptr";
-    if (type == 'i')
-    {
-        result = std::format("{}", data.i);
+    switch (type) {
+        case 'i':
+            return std::format("{}", data.i);
+        case 'd':
+            return std::format("{}", data.d);
+        case 'c':
+            return data.cPtr ? std::string(data.cPtr) : "nullPtr";
+        default:
+            return "unknown";
     }
-    if (type == 'd')
-    {
-        result = std::format("{:.2f}", data.d);
-    }
-    if (type == 'c')
-    {
-        if(data.cPtr != NULL)
-        {
-            result = std::format("{}", data.cPtr);
-        }
-    }
-    return result;
 }
 
 // ============================================================

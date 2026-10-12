@@ -71,7 +71,7 @@ void test_createTwoClassNodes_links_correctly(void)
     classNode* Node2 = Node1->nextPtr;
     TEST_ASSERT_NOT_NULL(Node2);
     TEST_ASSERT_EQUAL_CHAR('d', Node2->typeData);
-    TEST_ASSERT_TRUE_MESSAGE(Node2->value.d == 3.14, "TODO: Implement this test");
+    TEST_ASSERT_FLOAT_WITHIN(0.001, 3.14, Node2->value.d);
     TEST_ASSERT_NULL(Node2->nextPtr);
     delete Node2;
     delete Node1;
