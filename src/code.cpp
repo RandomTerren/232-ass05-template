@@ -22,6 +22,8 @@ const std::string credits = "I have used Geeks for Geeks and copilot to help me 
 // STAGE 0: Legacy C Union
 // ============================================================
 
+//I used geeks for geeks to help me implement case/switch.
+
 /// Converts a LegacyData union to a formatted string.
 /// Format specs:
 /// 'i' -> integer value as string (e.g., "42")
