@@ -37,7 +37,7 @@ std::string printLegacyData(LegacyData data, char type) {
         case 'd':
             return std::format("{}", data.d);
         case 'c':
-            return data.cPtr ? std::string(data.cPtr) : "nullPtr";
+            return data.cPtr ? std::string(data.cPtr) : "nullptr";
         default:
             return "unknown";
     }
