@@ -51,8 +51,8 @@ void test_createTwoStructNodes_links_correctly(void)
     TEST_ASSERT_NOT_NULL(Node2);
     TEST_ASSERT_EQUAL_CHAR('d', Node2->typeData);
     TEST_ASSERT_TRUE_MESSAGE(Node2->value.d == 3.14, "TODO: Implement this test");
-    delete Node2;
     delete Node1;
+    delete Node2;
 }
 
 // ============================================================
@@ -73,8 +73,8 @@ void test_createTwoClassNodes_links_correctly(void)
     TEST_ASSERT_EQUAL_CHAR('d', Node2->typeData);
     TEST_ASSERT_TRUE_MESSAGE(Node2->value.d == 3.14, "TODO: Implement this test");
     TEST_ASSERT_NULL(Node2->nextPtr);
-    delete Node1;
     delete Node2;
+    delete Node1;
 }
 
 // ============================================================
