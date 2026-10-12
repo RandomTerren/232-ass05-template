@@ -17,10 +17,11 @@
 /// Verify the returned string matches "42".
 void test_printLegacyData_int(void) 
 {
-    union LegacyData int1;
+    LegacyData int1;
     int1.i = 42;
-    printLegacyData(int1, 'i');
-    TEST_ASSERT_TRUE_MESSAGE(42, "TODO: Implement this test");
+    std::string result = printLegacyData(int1, 'i');
+    TEST_ASSERT_EQUAL_STRING("42", result.c_str());
+
 }
 
 /// Create a LegacyData union with a double (3.14). Call printLegacyData.
@@ -50,8 +51,8 @@ void test_createTwoStructNodes_links_correctly(void)
     TEST_ASSERT_NOT_NULL(Node2);
     TEST_ASSERT_EQUAL_CHAR('d', Node2->typeData);
     TEST_ASSERT_TRUE_MESSAGE(Node2->value.d == 3.14, "TODO: Implement this test");
-    delete Node1;
     delete Node2;
+    delete Node1;
 }
 
 // ============================================================
@@ -90,7 +91,7 @@ void test_createTwoTemplateNodes_links_correctly(void)
     TEST_ASSERT_EQUAL_INT(5, Node1->value);
     classNodeT<int>* Node2 = Node1->nextPtr;
     TEST_ASSERT_NOT_NULL(Node2);
-    TEST_ASSERT_EQUAL_CHAR(3, Node2->value);
+    TEST_ASSERT_EQUAL_INT(3, Node2->value);
     TEST_ASSERT_TRUE_MESSAGE(Node2->nextPtr == nullptr, "TODO: Implement this test");
     delete Node1;
     delete Node2;
@@ -124,9 +125,9 @@ void test_linkedList_addLast_places_at_end(void)
     link.addLast(Node1);
     link.addLast(Node2);
     std::stringstream output;
-    auto e = std::cout.rdbuf(output.rdbuf());
+    std::streambuf* old = std::cout.rdbuf(output.rdbuf());
     link.printList();
-    std::cout.rdbuf(e);
+    std::cout.rdbuf(old);
     TEST_ASSERT_TRUE_MESSAGE(output.str() == "10 20 \n", "TODO: Implement this test");
 }
 
@@ -193,9 +194,11 @@ void test_linkedList_deleteLast(void)
     link.addLast(Node2);
     link.addLast(Node3);
     int result = link.deleteLast();
-    TEST_ASSERT_TRUE_MESSAGE(result == 0 && link.listLength() == 2, "TODO: Implement this test");
-}
+    TEST_ASSERT_EQUAL_INT(0, result);
+    TEST_ASSERT_EQUAL_INT(2, link.listLength());
 
+}
+// I used copilot to help me redirect the buffer.
 /// Create a LinkedList with nodes (1, 2.5, "test").
 /// Redirect std::cout buffer and call printList().
 /// Verify printed output contains "1", "2.5" (or "2.50"), and "test".
@@ -203,14 +206,20 @@ void test_linkedList_printList(void)
 {
     LinkedList link;
     classNodeVariant* Node1 = new classNodeVariant(1);
-    classNodeVariant* Node2 = new classNodeVariant(3.14);
-    classNodeVariant* Node3 = new classNodeVariant(std::string("hello"));
+    classNodeVariant* Node2 = new classNodeVariant(2.5);
+    classNodeVariant* Node3 = new classNodeVariant(std::string("test"));
     link.addLast(Node1);
     link.addLast(Node2);
     link.addLast(Node3);
     std::stringstream buffer;
-    std::streambuf* e = std::cout.rdbuf(buffer.rdbuf());
+    std::streambuf* old = std::cout.rdbuf(buffer.rdbuf());
     int result = link.printList();
+    std::cout.rdbuf(old);
     std::string output = buffer.str();
-    TEST_ASSERT_TRUE_MESSAGE(result == 0 && link.listLength() == 3, "TODO: Implement this test");
+    bool e = (output.find("1") != std::string::npos) && 
+                             ((output.find("2.5") != std::string::npos) || (output.find("2.50") != std::string::npos)) && 
+                             (output.find("test") != std::string::npos);
+    TEST_ASSERT_EQUAL_INT(0, result);
+    TEST_ASSERT_EQUAL_INT(3, link.listLength());
+    TEST_ASSERT_TRUE_MESSAGE(e, "TODO: Implement this test");
 }
